@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketplace</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{% url 'home' %}">Marketplace</a>
+        <div class="ml-auto">
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="btn btn-outline-light">Profile</a>
+                <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
+            {% else %}
+                <a href="{% url 'token_obtain_pair' %}" class="btn btn-outline-light">Login</a>
+                <a href="{% url 'register' %}" class="btn btn-outline-success">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

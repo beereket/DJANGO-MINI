@@ -1,0 +1,941 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Marketplace API",
+    "description": "API для продажи и торговли",
+    "version": "v1"
+  },
+  "host": "127.0.0.1:8000",
+  "schemes": [
+    "http"
+  ],
+  "basePath": "/api",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
+  "paths": {
+    "/analytics/products/": {
+      "get": {
+        "operationId": "analytics_products_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "analytics"
+        ]
+      },
+      "parameters": []
+    },
+    "/analytics/sales/": {
+      "get": {
+        "operationId": "analytics_sales_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "analytics"
+        ]
+      },
+      "parameters": []
+    },
+    "/analytics/users/": {
+      "get": {
+        "operationId": "analytics_users_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "analytics"
+        ]
+      },
+      "parameters": []
+    },
+    "/cart/": {
+      "get": {
+        "operationId": "cart_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CartItem"
+              }
+            }
+          }
+        },
+        "tags": [
+          "cart"
+        ]
+      },
+      "parameters": []
+    },
+    "/cart/remove/{item_id}/": {
+      "delete": {
+        "operationId": "cart_remove_delete",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "cart"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "item_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/notifications/": {
+      "get": {
+        "operationId": "notifications_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Notification"
+              }
+            }
+          }
+        },
+        "tags": [
+          "notifications"
+        ]
+      },
+      "parameters": []
+    },
+    "/notifications/send/": {
+      "post": {
+        "operationId": "notifications_send_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Notification"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Notification"
+            }
+          }
+        },
+        "tags": [
+          "notifications"
+        ]
+      },
+      "parameters": []
+    },
+    "/products/": {
+      "get": {
+        "operationId": "products_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Product"
+              }
+            }
+          }
+        },
+        "tags": [
+          "products"
+        ]
+      },
+      "parameters": []
+    },
+    "/products/add/": {
+      "post": {
+        "operationId": "products_add_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        },
+        "tags": [
+          "products"
+        ]
+      },
+      "parameters": []
+    },
+    "/products/{id}/": {
+      "get": {
+        "operationId": "products_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        },
+        "tags": [
+          "products"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A unique integer value identifying this product.",
+          "required": true,
+          "type": "integer"
+        }
+      ]
+    },
+    "/products/{id}/delete/": {
+      "delete": {
+        "operationId": "products_delete_delete",
+        "description": "Delete product",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "Product deleted successfully"
+          }
+        },
+        "tags": [
+          "products"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A unique integer value identifying this product.",
+          "required": true,
+          "type": "integer"
+        }
+      ]
+    },
+    "/products/{id}/edit/": {
+      "put": {
+        "operationId": "products_edit_update",
+        "description": "Update product (only PUT allowed)",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        },
+        "tags": [
+          "products"
+        ]
+      },
+      "patch": {
+        "operationId": "products_edit_partial_update",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        },
+        "tags": [
+          "products"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A unique integer value identifying this product.",
+          "required": true,
+          "type": "integer"
+        }
+      ]
+    },
+    "/products/{product_id}/add_to_cart/": {
+      "post": {
+        "operationId": "products_add_to_cart_create",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "products"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "product_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/sales/pay/": {
+      "post": {
+        "operationId": "sales_pay_create",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "sales"
+        ]
+      },
+      "parameters": []
+    },
+    "/token/": {
+      "post": {
+        "operationId": "token_create",
+        "description": "Takes a set of user credentials and returns an access and refresh JSON web\ntoken pair to prove the authentication of those credentials.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TokenObtainPair"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TokenObtainPair"
+            }
+          }
+        },
+        "tags": [
+          "token"
+        ]
+      },
+      "parameters": []
+    },
+    "/token/refresh/": {
+      "post": {
+        "operationId": "token_refresh_create",
+        "description": "Takes a refresh type JSON web token and returns an access type JSON web\ntoken if the refresh token is valid.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TokenRefresh"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TokenRefresh"
+            }
+          }
+        },
+        "tags": [
+          "token"
+        ]
+      },
+      "parameters": []
+    },
+    "/trading/offers/": {
+      "get": {
+        "operationId": "trading_offers_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TradeOffer"
+              }
+            }
+          }
+        },
+        "tags": [
+          "trading"
+        ]
+      },
+      "parameters": []
+    },
+    "/trading/offers/add/": {
+      "post": {
+        "operationId": "trading_offers_add_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TradeOffer"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TradeOffer"
+            }
+          }
+        },
+        "tags": [
+          "trading"
+        ]
+      },
+      "parameters": []
+    },
+    "/trading/offers/{offer_id}/add_to_cart/": {
+      "post": {
+        "operationId": "trading_offers_add_to_cart_create",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "trading"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "offer_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/users/login/": {
+      "post": {
+        "operationId": "users_login_create",
+        "description": "Takes a set of user credentials and returns an access and refresh JSON web\ntoken pair to prove the authentication of those credentials.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TokenObtainPair"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TokenObtainPair"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "parameters": []
+    },
+    "/users/logout/": {
+      "post": {
+        "operationId": "users_logout_create",
+        "description": "Logout user by blacklisting the refresh token",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully logged out"
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "parameters": []
+    },
+    "/users/profile/": {
+      "get": {
+        "operationId": "users_profile_read",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "parameters": []
+    },
+    "/users/profile/orders/": {
+      "get": {
+        "operationId": "users_profile_orders_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CartItem"
+              }
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "parameters": []
+    },
+    "/users/profile/sales/": {
+      "get": {
+        "operationId": "users_profile_sales_list",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CartItem"
+              }
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "parameters": []
+    },
+    "/users/register/": {
+      "post": {
+        "operationId": "users_register_create",
+        "description": "",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Register"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Register"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "parameters": []
+    },
+    "/users/token/refresh/": {
+      "post": {
+        "operationId": "users_token_refresh_create",
+        "description": "Takes a refresh type JSON web token and returns an access type JSON web\ntoken if the refresh token is valid.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TokenRefresh"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TokenRefresh"
+            }
+          }
+        },
+        "tags": [
+          "users"
+        ]
+      },
+      "parameters": []
+    }
+  },
+  "definitions": {
+    "CartItem": {
+      "required": [
+        "user"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "quantity": {
+          "title": "Quantity",
+          "type": "integer"
+        },
+        "added_at": {
+          "title": "Added at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "user": {
+          "title": "User",
+          "type": "integer"
+        },
+        "product": {
+          "title": "Product",
+          "type": "integer",
+          "x-nullable": true
+        },
+        "trade_offer": {
+          "title": "Trade offer",
+          "type": "integer",
+          "x-nullable": true
+        }
+      }
+    },
+    "Notification": {
+      "required": [
+        "message",
+        "user"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "message": {
+          "title": "Message",
+          "type": "string",
+          "minLength": 1
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "is_read": {
+          "title": "Is read",
+          "type": "boolean"
+        },
+        "user": {
+          "title": "User",
+          "type": "integer"
+        }
+      }
+    },
+    "Product": {
+      "required": [
+        "name",
+        "price",
+        "category"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "name": {
+          "title": "Name",
+          "type": "string",
+          "maxLength": 255,
+          "minLength": 1
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "price": {
+          "title": "Price",
+          "type": "string",
+          "format": "decimal"
+        },
+        "category": {
+          "title": "Category",
+          "type": "integer"
+        },
+        "image": {
+          "title": "Image",
+          "type": "string",
+          "readOnly": true,
+          "format": "uri"
+        }
+      }
+    },
+    "TokenObtainPair": {
+      "required": [
+        "username",
+        "password"
+      ],
+      "type": "object",
+      "properties": {
+        "username": {
+          "title": "Username",
+          "type": "string",
+          "minLength": 1
+        },
+        "password": {
+          "title": "Password",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "TokenRefresh": {
+      "required": [
+        "refresh"
+      ],
+      "type": "object",
+      "properties": {
+        "refresh": {
+          "title": "Refresh",
+          "type": "string",
+          "minLength": 1
+        },
+        "access": {
+          "title": "Access",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        }
+      }
+    },
+    "TradeOffer": {
+      "required": [
+        "product",
+        "price"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "product": {
+          "title": "Product",
+          "type": "integer"
+        },
+        "price": {
+          "title": "Price",
+          "type": "string",
+          "format": "decimal"
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "User": {
+      "required": [
+        "username"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "ID",
+          "type": "integer",
+          "readOnly": true
+        },
+        "username": {
+          "title": "Имя пользователя",
+          "description": "Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.",
+          "type": "string",
+          "pattern": "^[\\w.@+-]+$",
+          "maxLength": 150,
+          "minLength": 1
+        },
+        "email": {
+          "title": "Адрес электронной почты",
+          "type": "string",
+          "format": "email",
+          "maxLength": 254
+        },
+        "role": {
+          "title": "Role",
+          "type": "string",
+          "enum": [
+            "buyer",
+            "seller",
+            "admin"
+          ]
+        },
+        "profile_image": {
+          "title": "Profile image",
+          "type": "string",
+          "readOnly": true,
+          "x-nullable": true,
+          "format": "uri"
+        }
+      }
+    },
+    "Register": {
+      "required": [
+        "username",
+        "password"
+      ],
+      "type": "object",
+      "properties": {
+        "username": {
+          "title": "Имя пользователя",
+          "description": "Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.",
+          "type": "string",
+          "pattern": "^[\\w.@+-]+$",
+          "maxLength": 150,
+          "minLength": 1
+        },
+        "email": {
+          "title": "Адрес электронной почты",
+          "type": "string",
+          "format": "email",
+          "maxLength": 254
+        },
+        "password": {
+          "title": "Пароль",
+          "type": "string",
+          "maxLength": 128,
+          "minLength": 1
+        },
+        "role": {
+          "title": "Role",
+          "type": "string",
+          "enum": [
+            "buyer",
+            "seller",
+            "admin"
+          ]
+        }
+      }
+    }
+  }
+}
